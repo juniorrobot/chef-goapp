@@ -1,6 +1,6 @@
-check host golang_<%= @application_name %>_server with address 127.0.0.1
-  start program = "<%= @release_path %>/golang-<%= @application_name %>-server-daemon start"
-  stop program  = "<%= @release_path %>/golang-<%= @application_name %>-server-daemon stop"
+check host goapp_<%= @application_name %>_server with address 127.0.0.1
+  start program = "<%= @release_path %>/goapp-<%= @application_name %>-server-daemon start"
+  stop program  = "<%= @release_path %>/goapp-<%= @application_name %>-server-daemon stop"
   if failed port <%= @port %> protocol HTTP
     request /
     with timeout 10 seconds

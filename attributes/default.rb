@@ -1,3 +1,3 @@
-include_attribute "golang::deploy"
+include_attribute "goapp::deploy"
 
 

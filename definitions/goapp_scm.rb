@@ -1,4 +1,4 @@
-define :golang_scm do
+define :goapp_scm do
   # also takes gopath, go_get?, go_build?
   application = params[:app]
   deploy = params[:deploy_data]
@@ -95,20 +95,20 @@ define :golang_scm do
       end
   
       before_symlink do
-        if deploy[:application_type] == 'golang'
+        if deploy[:application_type] == 'goapp'
           
-          bash "go-get-and-build-golang-server" do
+          bash "go-get-and-build-goapp-server" do
             cwd release_path
             code <<-EOH
               #{node['go']['install_dir']}/go/bin/go get .
-              #{node['go']['install_dir']}/go/bin/go build -o ./golang_#{application}_server #{application}.go
+              #{node['go']['install_dir']}/go/bin/go build -o ./goapp_#{application}_server #{application}.go
             EOH
             action :run # TODO: Make the .go a param
           end
         end
       end
   
-    # --- Nothing to do for golang here ---
+    # --- Nothing to do for goapp here ---
     #   before_migrate do
     #     link_tempfiles_to_current_release
     # 
@@ -169,7 +169,7 @@ define :golang_scm do
     end
   end
   
-  # --- Nothing to do for golang here ---
+  # --- Nothing to do for goapp here ---
   # if deploy[:application_type] == 'rails' && node[:opsworks][:instance][:layers].include?('rails-app')
   #   case node[:opsworks][:rails_stack][:name]
   # 

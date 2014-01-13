@@ -7,7 +7,7 @@ case $1 in
        echo "Server already running";
      else
        echo $$ > <%= @pid_file %>;
-       <%= @release_path %>/golang_<%= @application_name %>_server -c <%= @config_file %> 1><%= @output_file %>;
+       <%= @release_path %>/goapp_<%= @application_name %>_server -c <%= @config_file %> 1><%= @output_file %>;
        rm <%= @pid_file %>;
      fi
      ;;
@@ -20,6 +20,6 @@ case $1 in
      start
      ;;
    *)  
-     echo "usage: golang-<%= @application_name %>-server-daemon {start|stop|restart}" ;;
+     echo "usage: goapp-<%= @application_name %>-server-daemon {start|stop|restart}" ;;
 esac
 exit 0

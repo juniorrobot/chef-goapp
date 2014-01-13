@@ -1,1 +1,1 @@
-include_recipe 'golang::configure'
+include_recipe 'goapp::configure'

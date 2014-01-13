@@ -1,6 +1,6 @@
-define :golang_deploy_config_and_monit do
+define :goapp_deploy_config_and_monit do
   # application_name
-  # golang_application_settings
+  # goapp_application_settings
   # hostname
   # deploy_to
   # env_vars
@@ -24,22 +24,22 @@ define :golang_deploy_config_and_monit do
     )
   end
   
-  template "#{params[:deploy_to]}/current/golang-#{params[:application_name]}-server-daemon" do
-    source   'golang-server-daemon.erb'
+  template "#{params[:deploy_to]}/current/goapp-#{params[:application_name]}-server-daemon" do
+    source   'goapp-server-daemon.erb'
     owner    'root'
     group    'root'
     mode     '0751'
     variables(
-      :pid_file         => params[:golang_application_settings][:pid_file],
+      :pid_file         => params[:goapp_application_settings][:pid_file],
       :release_path     => "#{params[:deploy_to]}/current",
       :application_name => params[:application_name],
-      :config_file      => params[:golang_application_settings][:config_file],
-      :output_file      => params[:golang_application_settings][:output_file]
+      :config_file      => params[:goapp_application_settings][:config_file],
+      :output_file      => params[:goapp_application_settings][:output_file]
     )
   end
   
-  template "#{params[:monit_conf_dir]}/golang_#{params[:application_name]}_server.monitrc" do
-    source  'golang_server.monitrc.erb'
+  template "#{params[:monit_conf_dir]}/goapp_#{params[:application_name]}_server.monitrc" do
+    source  'goapp_server.monitrc.erb'
     owner   'root'
     group   'root'
     mode    '0644'

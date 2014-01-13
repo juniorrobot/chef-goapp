@@ -1,4 +1,4 @@
-define :golang_user_and_group do
+define :goapp_user_and_group do
   # user
   # group
   # home
