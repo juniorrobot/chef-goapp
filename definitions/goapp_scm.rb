@@ -130,10 +130,10 @@ define :goapp_scm do
           bash "go-get-and-build-goapp-server" do
             cwd release_path
             code <<-EOH
-              PATH=$PATH:#{node['go']['install_dir']}/go/bin &&
-                GOPATH=#{release_path}/.go &&
-                go get github.com/kr/godep &&
-                .go/bin/godep go build -o ./goapp_#{application}_server #{application}.go
+              export PATH=$PATH:#{node['go']['install_dir']}/go/bin
+              export GOPATH=#{release_path}/.go
+              go get github.com/kr/godep
+              .go/bin/godep go build -o ./goapp_#{application}_server #{application}.go
             EOH
             action :run # TODO: Make the .go a param
           end
