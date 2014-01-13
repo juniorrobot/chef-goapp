@@ -109,7 +109,7 @@ define :goapp_scm do
           # the goal is to make .go/github.com/user/repo -> release_dir
           # this is useful if you reference packages from within your app
           unless goapp.nil? || goapp == ""
-            directory "#{release_path}/.go/src/#{goapp.split('/'][0...-1])}" do
+            directory "#{release_path}/.go/src/#{goapp.split('/')[0...-1].join('/')}" do
               group params[:group]
               owner params[:user]
               mode 0770
