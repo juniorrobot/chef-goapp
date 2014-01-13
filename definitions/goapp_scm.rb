@@ -98,9 +98,9 @@ define :goapp_scm do
       before_symlink do
         if deploy[:application_type] == 'goapp'
           directory "#{release_path}/.go" do # create a .go directory in release path
-            group params[:group]
-            owner params[:user]
-            mode 0770
+            group deploy[:group]
+            owner deploy[:user]
+            mode "0775"
             action :create
             recursive true
           end
@@ -110,15 +110,19 @@ define :goapp_scm do
           # this is useful if you reference packages from within your app
           unless goapp.nil? || goapp == ""
             directory "#{release_path}/.go/src/#{goapp.split('/')[0...-1].join('/')}" do
-              group params[:group]
-              owner params[:user]
-              mode 0770
+              group deploy[:group]
+              owner deploy[:user]
+              mode "0775"
               action :create
               recursive true
             end
 
             link "#{release_path}/.go/src/#{goapp}" do
               to "#{release_path}"
+              group deploy[:group]
+              owner deploy[:user]
+              mode "0775"
+              action :create
             end
           end
 
