@@ -23,7 +23,7 @@ node[:deploy].each do |application, _|
     application_name             application
     hostname                     node[:hostname]
     basicauth_users              node[:goapp][application][:basicauth_users]
-    goapp_application_settings  node[:goapp][application]
+    goapp_application_settings   node[:goapp][application]
     deploy_to                    node[:deploy][application][:deploy_to]
     env_vars                     node[:goapp][application][:env]
     monit_conf_dir               node[:monit][:conf_dir]

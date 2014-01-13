@@ -36,6 +36,10 @@ define :goapp_deploy_config_and_monit do
       :config_file      => params[:goapp_application_settings][:config_file],
       :output_file      => params[:goapp_application_settings][:output_file]
     )
+    
+    only_if do
+      File.exists?("#{params[:deploy_to]}/current")
+    end
   end
   
   template "#{params[:monit_conf_dir]}/goapp_#{params[:application_name]}_server.monitrc" do
@@ -48,6 +52,11 @@ define :goapp_deploy_config_and_monit do
       :release_path     => "#{params[:deploy_to]}/current",
       :port             => params[:env_vars]['PORT']
     )
+    
+    only_if do
+      File.exists?("#{params[:deploy_to]}/current")
+    end
+
     notifies :restart, resources(:service => 'monit'), :immediately
   end
 end
