@@ -1,1 +1,1 @@
-include_recipe 'nutty::configure'
+include_recipe 'golang::configure'

@@ -1,4 +1,4 @@
-define :nutty_user_and_group do
+define :golang_user_and_group do
   # user
   # group
   # home

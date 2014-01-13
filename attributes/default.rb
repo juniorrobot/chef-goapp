@@ -1,3 +1,3 @@
-include_attribute "nutty::deploy"
+include_attribute "golang::deploy"
 
 
