@@ -35,30 +35,17 @@ This cookbook relies on a databag, which you should set in Amazon OpsWorks as yo
 
 ```json
 {
-  "service_realm": "production",
   "deploy": {
     "YOUR_APPLICATION_NAME": {
       "application_type": "goapp",
       "env": {
-        "AWS_ACCESS_KEY_ID": "YOUR_AWS_ACCESS_KEY_CREDENTIALS",
-        "AWS_SECRET_ACCESS_KEY": "YOUR_AWS_SECRET_KEY_CREDENTIALS",
-        "AWS_REGION": "us-east-1",
-        "PORT": 80
-      },
-      "kafka": {
-        "topics": [ "YOUR_TOPIC_1" ],
-        "max_message_size": 4096
+        "PORT": 80,
+        "or_whatever": "you want in env.properties"
       }
     }
   }
 }
 ```
-
-Here's a little more about the ones you have to fill in:
-- `YOUR_APPLICATION_NAME` is what you named your app, in the "Apps" section of OpsWorks
-- `YOUR_AWS_ACCESS_KEY_CREDENTIALS` should be gotten from Amazon AWS
-- `YOUR_AWS_SECRET_KEY_CREDENTIALS` should also be gotten from Amazon AWS
-- `YOUR_TOPIC_1` is an array of kafka topics, or empty
 
 Important note: this cookbook double-checks that your `application_type` is set to `goapp`. If `application_type` is not set to `goapp`, none of the cookbook will run for that app.
 
