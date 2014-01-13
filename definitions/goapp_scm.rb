@@ -5,6 +5,7 @@ define :goapp_scm do
   gopath = params[:gopath]
   should_go_get = params[:go_get?]
   should_go_build = params[:go_build?]
+  goapp = deploy[:goapp]
 
   directory "#{deploy[:deploy_to]}" do
     group       deploy[:group]
@@ -96,12 +97,39 @@ define :goapp_scm do
   
       before_symlink do
         if deploy[:application_type] == 'goapp'
-          
+          directory "#{release_path}/.go" do # create a .go directory in release path
+            group params[:group]
+            owner params[:user]
+            mode 0770
+            action :create
+            recursive true
+          end
+
+          # create a symlink to current application, if given
+          # the goal is to make .go/github.com/user/repo -> release_dir
+          # this is useful if you reference packages from within your app
+          unless goapp.nil? || goapp == ""
+            directory "#{release_path}/.go/src/#{goapp.split('/'][0...-1])}" do
+              group params[:group]
+              owner params[:user]
+              mode 0770
+              action :create
+              recursive true
+            end
+
+            link "#{release_path}/.go/src/#{goapp}" do
+              to "#{release_path}"
+            end
+          end
+
+          # we're going to buid using godep
           bash "go-get-and-build-goapp-server" do
             cwd release_path
             code <<-EOH
-              #{node['go']['install_dir']}/go/bin/go get .
-              #{node['go']['install_dir']}/go/bin/go build -o ./goapp_#{application}_server #{application}.go
+              PATH=$PATH:#{node['go']['install_dir']}/go/bin &&
+                GOPATH=#{release_path}/.go &&
+                go get github.com/kr/godep &&
+                .go/bin/godep go build -o ./goapp_#{application}_server #{application}.go
             EOH
             action :run # TODO: Make the .go a param
           end
