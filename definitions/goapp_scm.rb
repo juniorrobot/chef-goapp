@@ -131,9 +131,8 @@ define :goapp_scm do
             cwd release_path
             code <<-EOH
               export PATH=$PATH:#{node['go']['install_dir']}/go/bin
-              export GOPATH=#{release_path}/.go
-              go get github.com/kr/godep
-              .go/bin/godep go build -o ./goapp_#{application}_server #{application}.go
+              GOPATH=#{release_path}/.go go get github.com/kr/godep
+              GOPATH=#{release_path}/.go .go/bin/godep go build -o ./goapp_#{application}_server #{application}.go
             EOH
             action :run # TODO: Make the .go a param
           end
