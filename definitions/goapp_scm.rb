@@ -6,6 +6,7 @@ define :goapp_scm do
   should_go_get = params[:go_get?]
   should_go_build = params[:go_build?]
   goapp = deploy[:goapp]
+  gofile = deploy[:gofile]
 
   directory "#{deploy[:deploy_to]}" do
     group       deploy[:group]
@@ -126,15 +127,20 @@ define :goapp_scm do
             end
           end
 
+          # We're going to log this since it's a common point of failure
+          script = <<-EOH
+            export PATH=$PATH:#{node['go']['install_dir']}/go/bin
+            GOPATH=#{release_path}/.go go get github.com/kr/godep
+            GOPATH=#{release_path}/.go .go/bin/godep go build -o ./goapp_#{application}_server #{gofile}
+          EOH
+          
+          Chef::Log.info("Compiling goapp via: `#{script}`")
+
           # we're going to buid using godep
           bash "go-get-and-build-goapp-server" do
             cwd release_path
-            code <<-EOH
-              export PATH=$PATH:#{node['go']['install_dir']}/go/bin
-              GOPATH=#{release_path}/.go go get github.com/kr/godep
-              GOPATH=#{release_path}/.go .go/bin/godep go build -o ./goapp_#{application}_server #{application}.go
-            EOH
-            action :run # TODO: Make the .go a param
+            code script
+            action :run
           end
         end
       end

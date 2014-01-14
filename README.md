@@ -14,6 +14,8 @@ This cookbook depends on the following:
 - `golang`: the installation of go recipe at https://github.com/crowdmob/chef-golang
 - `monit`: the monit package to ensure your server is running, and tries to restart it if not at https://github.com/crowdmob/chef-monit
 
+Additionally, you must use `Godep` for storing code dependencies.
+
 Only Use 64 Bit EC2 Instances
 -----------------------------
 At this time, the `golang` cookbook mentioned doesn't dynamically choose the right binary at runtime, based on CPU.  That means that it assumes a 64 bit ec2 instance, which is a large instance or better.
@@ -38,6 +40,7 @@ This cookbook relies on a databag, which you should set in Amazon OpsWorks as yo
   "deploy": {
     "YOUR_APPLICATION_NAME": {
       "application_type": "goapp",
+      "gofile": "my_app.go",
       "env": {
         "PORT": 80,
         "or_whatever": "you want in env.properties"
@@ -47,7 +50,7 @@ This cookbook relies on a databag, which you should set in Amazon OpsWorks as yo
 }
 ```
 
-Important note: this cookbook double-checks that your `application_type` is set to `goapp`. If `application_type` is not set to `goapp`, none of the cookbook will run for that app.
+Important note: this cookbook double-checks that your `application_type` is set to `goapp`. If `application_type` is not set to `goapp`, none of the cookbook will run for that app.  If `gofile` is omitted, uses `APPLICATION_NAME.go`.
 
 
 How it Works

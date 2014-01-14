@@ -10,6 +10,7 @@ node[:deploy].each do |application, _|
     default[:goapp][application][:env] = node[:deploy][application][:env]
   end
   
+  default[:goapp][application][:gofile] = "#{application}.go"
   default[:goapp][application][:restart_server_command] = "monit restart goapp_#{application}_server"
   default[:goapp][application][:stop_server_command] = "monit stop goapp_#{application}_server"
   
