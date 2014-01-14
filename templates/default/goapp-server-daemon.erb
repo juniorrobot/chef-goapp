@@ -3,6 +3,7 @@
 case $1 in
   start)
      echo $$ > <%= @pid_file %>;
+     cd <%= @release_path %>;
      exec 2>&1 <%= @release_path %>/goapp_<%= @application_name %>_server -c <%= @config_file %> 1><%= @output_file %>
      ;;
    stop)
