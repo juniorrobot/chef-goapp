@@ -17,4 +17,5 @@ node[:deploy].each do |application, _|
   default[:goapp][application][:config_file] = "#{node[:deploy][application][:deploy_to]}/shared/config/env.properties"
   default[:goapp][application][:pid_file] = "#{node[:deploy][application][:deploy_to]}/shared/pids/goapp.pid"
   default[:goapp][application][:output_file] = "#{node[:deploy][application][:deploy_to]}/shared/log/goapp.log"
+  default[:goapp][application][:test_url] = "/"
 end

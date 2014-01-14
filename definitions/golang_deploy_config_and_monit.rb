@@ -50,7 +50,8 @@ define :goapp_deploy_config_and_monit do
     variables(
       :application_name => params[:application_name],
       :release_path     => "#{params[:deploy_to]}/current",
-      :port             => params[:env_vars]['PORT']
+      :port             => params[:env_vars]['PORT'],
+      :test_url         => params[:test_url]
     )
     
     only_if do

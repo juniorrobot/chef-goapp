@@ -42,6 +42,7 @@ This cookbook relies on a databag, which you should set in Amazon OpsWorks as yo
     "YOUR_APPLICATION_NAME": {
       "application_type": "goapp",
       "gofile": "my_app.go",
+      "test_url": "/",
       "env": {
         "PORT": 80,
         "or_whatever": "you want in env.properties"
@@ -51,8 +52,22 @@ This cookbook relies on a databag, which you should set in Amazon OpsWorks as yo
 }
 ```
 
-Important note: this cookbook double-checks that your `application_type` is set to `goapp`. If `application_type` is not set to `goapp`, none of the cookbook will run for that app.  If `gofile` is omitted, uses `APPLICATION_NAME.go`.
+Important note: this cookbook double-checks that your `application_type` is set to `goapp`. If `application_type` is not set to `goapp`, none of the cookbook will run for that app.  If `gofile` is omitted, uses `APPLICATION_NAME.go`.  `test_url` will be tested by monit to ensure server is still up (default "/").
 
+If you include a layers key, only matching layer will deploy this application.  E.g.
+
+```json
+{
+  "deploy": {
+    "blog": {
+      "application_type": "goapp",
+      "layers": ["blog-server"]
+    }
+  }
+}
+```
+
+The `blog` app will only deploy onto the `blog-server` layer.
 
 How it Works
 -----------------------------

@@ -29,6 +29,7 @@ node[:deploy].each do |application, _|
     monit_conf_dir               node[:monit][:conf_dir]
     group                        node[:deploy][application][:group]
     user                         node[:deploy][application][:user]
+    test_url                     node[:goapp][application][:test_url]
   end
 
   ruby_block "restart goapp application #{application}" do
