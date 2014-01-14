@@ -1,7 +1,7 @@
 include_attribute "goapp::configure"
 
 node[:deploy].each do |application, _|
-  
+    
   if node[:deploy][application][:environment] && node[:deploy][application][:environment]["HOME"] && node[:deploy][application][:env]
     default[:goapp][application][:env] = {"HOME" => node[:deploy][application][:environment]["HOME"]}.merge(node[:deploy][application][:env])
   elsif node[:deploy][application][:environment] && node[:deploy][application][:environment]["HOME"]
