@@ -28,8 +28,9 @@ Custom Chef Recipes Setup
 -----------------------------
 To deploy your app, you'll have to make sure 2 of the recipes in this cookbook are run.
 
-1. `goapp::configure` should run during the configuration phase of your node in OpsWorks
-2. `goapp::deploy` should run during (every) deployment phase of your node.
+1. `golang::install` should run during the setup phase of your node in OpsWorks
+2. `goapp::configure` should run during the configuration phase of your node in OpsWorks
+3. `goapp::deploy` should run during (every) deployment phase of your node.
 
 Databag Setup
 -----------------------------
