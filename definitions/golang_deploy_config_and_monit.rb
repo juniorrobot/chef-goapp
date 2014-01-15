@@ -26,8 +26,8 @@ define :goapp_deploy_config_and_monit do
   
   template "#{params[:deploy_to]}/current/goapp-#{params[:application_name]}-server-daemon" do
     source   'goapp-server-daemon.erb'
-    owner    'root'
-    group    'root'
+    owner    params[:user]
+    group    params[:group]
     mode     '0751'
     variables(
       :pid_file         => params[:goapp_application_settings][:pid_file],
