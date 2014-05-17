@@ -14,7 +14,7 @@ node[:deploy].each do |application, _|
   default[:goapp][application][:restart_server_command] = "monit restart goapp_#{application}_server"
   default[:goapp][application][:stop_server_command] = "monit stop goapp_#{application}_server"
   
-  default[:goapp][application][:config_file] = "#{node[:deploy][application][:deploy_to]}/shared/config/env.properties"
+  default[:goapp][application][:config_file] = "#{node[:deploy][application][:deploy_to]}/shared/config/#{application}.properties"
   default[:goapp][application][:pid_file] = "#{node[:deploy][application][:deploy_to]}/shared/pids/goapp.pid"
   default[:goapp][application][:output_file] = "#{node[:deploy][application][:deploy_to]}/shared/log/goapp.log"
   default[:goapp][application][:test_url] = "/"

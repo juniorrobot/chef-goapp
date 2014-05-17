@@ -30,6 +30,7 @@ node[:deploy].each do |application, _|
     deploy_to                    node[:deploy][application][:deploy_to]
     env_vars                     node[:goapp][application][:env]
     config_vars                  config
+    config_file                  node[:goapp][application][:config_file]
     monit_conf_dir               node[:monit][:conf_dir]
     group                        node[:deploy][application][:group]
     user                         node[:deploy][application][:user]

@@ -14,8 +14,8 @@ define :goapp_deploy_config_and_monit do
     action :nothing
   end
 
-  template "#{params[:deploy_to]}/shared/config/env.properties" do
-    source  'env.properties.erb'
+  template "#{params[:config_file]}" do
+    source  'config.properties.erb'
     mode    '0660'
     owner    params[:user]
     group    params[:group]

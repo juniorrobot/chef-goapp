@@ -45,7 +45,7 @@ This cookbook relies on a databag, which you should set in Amazon OpsWorks as yo
       "test_url": "/",
       "env": {
         "PORT": 80,
-        "or_whatever": "you want in env.properties"
+        "or_whatever": "you want in YOUR_APPLICATION_NAME.properties"
       },
       "config": ["other"]
     }
@@ -88,7 +88,7 @@ If you include a config key, the matching root-level values will be copied to th
 }
 ```
 
-The resulting env.properties file will contain the following sections:
+The resulting blog.properties file will contain the following sections:
 
 ```
 [wordpress]
@@ -100,8 +100,8 @@ How it Works
 This cookbook builds and runs a go webapp in the following way:
 
 - The `APPNAME.go` source file is built using `go get .` followed by `go build -o ./goapp_APPNAME_server server.go`.  That results in an executable of your application at `/srv/www/APPNAME/current/goapp_APPNAME_server`
-- A `env.properties` file is created using your databag and output at `/srv/www/APPNAME/shared/config/env.properties`
-- A `goapp-APPNAME-server-daemon` shell script is created and placed in  `/srv/www/APPNAME/current/`, which handles start and restart commands, by calling  `/srv/www/APPNAME/current/goapp_APPNAME_server -c /srv/www/APPNAME/shared/config/env.properties` and outputting logs to `/srv/www/APPNAME/shared/log/goapp.log`
+- A `APPNAME.properties` file is created using your databag and output at `/srv/www/APPNAME/shared/config/APPNAME.properties`
+- A `goapp-APPNAME-server-daemon` shell script is created and placed in  `/srv/www/APPNAME/current/`, which handles start and restart commands, by calling  `/srv/www/APPNAME/current/goapp_APPNAME_server -c /srv/www/APPNAME/shared/config/APPNAME.properties` and outputting logs to `/srv/www/APPNAME/shared/log/goapp.log`
 - A `goapp_APPNAME_server.monitrc` monit script is created, which utilizes the `goapp-APPNAME-server-daemon` script for startup and shutdown, and is placed in `/etc/monit.d` or `/etc/monit/conf.d`, depending on your OS (defined in the `monit` cookbook)
 - `monit` is restarted, which incorporates the the new files.
 
@@ -112,7 +112,7 @@ A little about `goapp`
 For the purposes of this cookbook, though, the only thing that it assumes about your webapp is:
 
 1. Your `main` function is in a file called `APPNAME.go` in the base of your project. 
-2. Your `APPNAME.go` program won't die if it's sent a `-c` flag at the command line with a filepath after it, like `go run server.go -c /path/to/env.properties`.  Whether or not it uses that file, however, is up to it.
+2. Your `APPNAME.go` program won't die if it's sent a `-c` flag at the command line with a filepath after it, like `go run server.go -c /path/to/server.properties`.  Whether or not it uses that file, however, is up to it.
 
 
 License and Author
