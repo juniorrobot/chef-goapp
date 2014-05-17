@@ -46,8 +46,12 @@ This cookbook relies on a databag, which you should set in Amazon OpsWorks as yo
       "env": {
         "PORT": 80,
         "or_whatever": "you want in env.properties"
-      }
+      },
+      "config": ["other"]
     }
+  },
+  "other": {
+    "option1": "value1"
   }
 }
 ```
@@ -68,6 +72,28 @@ If you include a layers key, only matching layer will deploy this application.  
 ```
 
 The `blog` app will only deploy onto the `blog-server` layer.
+
+If you include a config key, the matching root-level values will be copied to the properties file as sections, allowing other cookbook configuration to be made available to your application. e.g.
+
+```json
+{
+  "deploy": {
+    "blog": {
+      "config": ["wordpress"],
+    }
+  },
+  "wordpress": {
+    "database": "db.host"
+  }
+}
+```
+
+The resulting env.properties file will contain the following sections:
+
+```
+[wordpress]
+database=db.host
+```
 
 How it Works
 -----------------------------

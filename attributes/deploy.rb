@@ -18,4 +18,10 @@ node[:deploy].each do |application, _|
   default[:goapp][application][:pid_file] = "#{node[:deploy][application][:deploy_to]}/shared/pids/goapp.pid"
   default[:goapp][application][:output_file] = "#{node[:deploy][application][:deploy_to]}/shared/log/goapp.log"
   default[:goapp][application][:test_url] = "/"
+
+  if node[:deploy][application][:config]
+    node[:deploy][application][:config].each do |name|
+      default[:goapp][application][:config][name] = node[name]
+    end
+  end
 end

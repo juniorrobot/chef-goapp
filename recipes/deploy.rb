@@ -20,6 +20,7 @@ node[:deploy].each do |application, _|
   end
 
   revision = (node[:deploy][application][:scm][:revision] rescue nil)
+  config = (node[:goapp][application][:config] or {})
   goapp_deploy_config_and_monit do
     application_name             application
     revision                     revision
@@ -28,6 +29,7 @@ node[:deploy].each do |application, _|
     goapp_application_settings   node[:goapp][application]
     deploy_to                    node[:deploy][application][:deploy_to]
     env_vars                     node[:goapp][application][:env]
+    config_vars                  config
     monit_conf_dir               node[:monit][:conf_dir]
     group                        node[:deploy][application][:group]
     user                         node[:deploy][application][:user]

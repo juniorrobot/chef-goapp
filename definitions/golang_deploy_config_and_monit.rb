@@ -5,6 +5,7 @@ define :goapp_deploy_config_and_monit do
   # hostname
   # deploy_to
   # env_vars
+  # config_vars
   # monit_conf_dir
   # group
   # user
@@ -22,6 +23,7 @@ define :goapp_deploy_config_and_monit do
       :application_name => params[:application_name],
       :deploy_path      => params[:deploy_to],
       :env_vars         => params[:env_vars],
+      :config_vars      => params[:config_vars],
       :revision         => params[:revision]
     )
   end
