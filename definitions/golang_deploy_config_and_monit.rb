@@ -1,5 +1,6 @@
 define :goapp_deploy_config_and_monit do
   # application_name
+  # revision
   # goapp_application_settings
   # hostname
   # deploy_to
@@ -20,7 +21,8 @@ define :goapp_deploy_config_and_monit do
     variables(
       :application_name => params[:application_name],
       :deploy_path      => params[:deploy_to],
-      :env_vars         => params[:env_vars]
+      :env_vars         => params[:env_vars],
+      :revision         => params[:revision]
     )
   end
   

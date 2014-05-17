@@ -19,8 +19,10 @@ node[:deploy].each do |application, _|
     gopath        "#{node[:deploy][application][:deploy_to]}/current/build"
   end
 
+  revision = (node[:deploy][application][:scm][:revision] rescue nil)
   goapp_deploy_config_and_monit do
     application_name             application
+    revision                     revision
     hostname                     node[:hostname]
     basicauth_users              node[:goapp][application][:basicauth_users]
     goapp_application_settings   node[:goapp][application]
