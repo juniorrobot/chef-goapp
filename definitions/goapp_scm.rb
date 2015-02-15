@@ -132,6 +132,7 @@ define :goapp_scm do
             export PATH=$PATH:#{node['go']['install_dir']}/go/bin
             GOPATH=#{release_path}/.go go get github.com/kr/godep
             GOPATH=#{release_path}/.go .go/bin/godep get
+            GOPATH=#{release_path}/.go .go/bin/godep restore
             GOPATH=#{release_path}/.go .go/bin/godep go build -o ./goapp_#{application}_server #{gofile}
           EOH
           
